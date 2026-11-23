@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f35">
+  <meta name="description" content="Explore historical Hebrew, Talmudic Aramaic, and Yiddish through age-aware lessons and tradition-conscious learning options.">
+  <title>TorahTongue — Learn Jewish Languages</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="TorahTongue home">
+      <span class="brand-mark" aria-hidden="true">ת</span>
+      <span>Torah<span class="brand-light">Tongue</span></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#courses">Courses</a>
+      <a href="#approach">Our approach</a>
+      <a class="nav-cta" href="#start">Explore lessons</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">Languages, texts, traditions</p>
+        <h1>Find your way into the words.</h1>
+        <p class="hero-intro">Learn historical Hebrew, Talmudic Aramaic, and Yiddish with lessons shaped for your age, goals, and learning tradition.</p>
+        <a class="button button-light" href="#start">Choose your learning path <span aria-hidden="true">→</span></a>
+        <p class="hero-note">A welcoming place to learn, listen, read, and compare.</p>
+      </div>
+      <div class="hero-art" aria-label="Decorative Hebrew letters and open book illustration" role="img">
+        <span class="letter letter-one" aria-hidden="true">ל</span>
+        <span class="letter letter-two" aria-hidden="true">א</span>
+        <span class="letter letter-three" aria-hidden="true">מ</span>
+        <div class="book-shape" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+    </section>
+
+    <section class="section learner-section" id="start">
+      <div class="section-heading">
+        <p class="eyebrow">Make it yours</p>
+        <h2>Start with your learning preferences</h2>
+        <p>Choose an age band and, if you like, a tradition to highlight. You can change these at any time.</p>
+      </div>
+      <form class="profile-panel" id="profile-form">
+        <label for="age-band">Who is learning?</label>
+        <select id="age-band" name="ageBand">
+          <option value="elementary">Elementary learner</option>
+          <option value="secondary">Secondary school learner</option>
+          <option value="adult">Adult learner</option>
+        </select>
+        <label for="tradition">Tradition or pronunciation preference <span class="optional">(optional)</span></label>
+        <select id="tradition" name="tradition">
+          <option value="unspecified">I'm not sure / show me options</option>
+          <option value="litvish">Litvish / Lithuanian</option>
+          <option value="hasidic">Hasidic (community varies)</option>
+          <option value="polish">Polish / Galician-related</option>
+          <option value="hungarian">Hungarian / Ungrish</option>
+          <option value="ukrainian">Ukrainian (regional varieties vary)</option>
+          <option value="southern">Southern Yiddish (regional varieties vary)</option>
+          <option value="western">Western Yiddish</option>
+          <option value="sephardic">Sephardic Hebrew</option>
+          <option value="yemenite">Yemenite Hebrew</option>
+          <option value="custom">Another or mixed tradition</option>
+        </select>
+        <button class="button button-dark" type="submit">Show my learning path</button>
+        <p class="form-hint" id="profile-message" role="status">Your preference is saved only in this browser.</p>
+      </form>
+    </section>
+
+    <section class="section courses-section" id="courses">
+      <div class="section-heading section-heading-row">
+        <div>
+          <p class="eyebrow">Three learning tracks</p>
+          <h2>Choose what you want to explore</h2>
+        </div>
+        <p class="profile-summary" id="profile-summary">A path for every stage of learning.</p>
+      </div>
+      <div class="course-grid">
+        <article class="course-card course-hebrew">
+          <div class="course-topline"><span class="course-icon" aria-hidden="true">א</span><span class="tag">Reading & foundations</span></div>
+          <h3>Historical Hebrew</h3>
+          <p class="course-subtitle">Leshon Hakodesh</p>
+          <p>Build reading skills, vocabulary, and grammar as a foundation for engaging with classical Hebrew texts.</p>
+          <a class="text-link lesson-link" href="#lesson" data-course="hebrew">Preview a lesson <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="course-card course-aramic">
+          <div class="course-topline"><span class="course-icon" aria-hidden="true">ג</span><span class="tag">Guided text study</span></div>
+          <h3>Talmudic Aramaic</h3>
+          <p class="course-subtitle">Language for learning</p>
+          <p>Meet common vocabulary and grammar, then practice reading short, carefully sourced Talmudic passages.</p>
+          <a class="text-link lesson-link" href="#lesson" data-course="aramaic">Preview a lesson <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="course-card course-yiddish">
+          <div class="course-topline"><span class="course-icon" aria-hidden="true">יי</span><span class="tag">Language & variation</span></div>
+          <h3>Yiddish</h3>
+          <p class="course-subtitle">Many voices, shared learning</p>
+          <p>Learn vocabulary and reading, and explore how pronunciation and usage differ across communities and regions.</p>
+          <a class="text-link lesson-link" href="#lesson" data-course="yiddish">Preview a lesson <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="lesson-section" id="lesson" aria-live="polite">
+      <div class="lesson-copy">
+        <p class="eyebrow">Sample lesson · illustrative content</p>
+        <h2 id="lesson-title">A first step in historical Hebrew</h2>
+        <p id="lesson-description">Notice how a word is built and read. This sample demonstrates the lesson format; instructional content needs expert review before release.</p>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-label">Word focus</div>
+        <div class="lesson-word" id="lesson-word" lang="he" dir="rtl">דָּבָר</div>
+        <p class="transliteration" id="lesson-transliteration">davar · “word / thing”</p>
+        <button class="button button-outline" id="lesson-action" type="button">Mark as explored</button>
+        <p class="lesson-feedback" id="lesson-feedback" role="status"></p>
+      </div>
+    </section>
+
+    <section class="section approach-section" id="approach">
+      <div class="section-heading">
+        <p class="eyebrow">A respectful approach</p>
+        <h2>Traditions are part of the learning</h2>
+        <p>Pronunciation and community labels can overlap and vary internally. TorahTongue is designed to identify whose voice and sources are represented, welcome mixed backgrounds, and avoid treating one tradition as universal.</p>
+      </div>
+      <div class="approach-points">
+        <article><span>01</span><h3>Age-aware</h3><p>Activities and explanations can be adapted for elementary, secondary, and adult learners.</p></article>
+        <article><span>02</span><h3>Source-conscious</h3><p>Published lessons should cite texts and identify translations, recordings, and reviewers.</p></article>
+        <article><span>03</span><h3>Open to variation</h3><p>Choose a familiar profile, compare traditions, or begin without choosing one.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand-footer" href="#home"><span class="brand-mark" aria-hidden="true">ת</span><span>Torah<span class="brand-light">Tongue</span></span></a>
+    <p>Learn with curiosity. Listen with respect.</p>
+    <small>Prototype demo content is illustrative and requires qualified review before educational use.</small>
+  </footer>
+</body>
+</html>
