@@ -1,5 +1,7 @@
 # TorahTongue
 
+The link to the prototype https://torahtongue.netlify.app/
+
 TorahTongue is a language-learning website concept for studying historical Hebrew (Leshon Hakodesh), Talmudic Aramaic, and Yiddish. It is designed for elementary, secondary, and adult learners, with age-aware lesson presentation and options to explore pronunciation and community traditions.
 
 > **Project status:** Early, dependency-free web prototype. The current version demonstrates the landing page, learner preferences, and sample lesson cards. It is not yet a complete curriculum or a substitute for a reviewed language-learning product.
