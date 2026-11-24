@@ -11,7 +11,6 @@
   --serif: Georgia, "Times New Roman", serif;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; color: var(--ink); background: var(--paper); line-height: 1.6; }
@@ -35,7 +34,7 @@ h1, h2, h3, p { margin-top: 0; }
 h1, h2 { font-family: var(--serif); font-weight: 500; letter-spacing: -.035em; line-height: 1.12; }
 h1 { max-width: 620px; margin-bottom: 1.15rem; font-size: clamp(2.8rem, 6vw, 5.3rem); }
 .hero-intro { max-width: 550px; margin-bottom: 1.7rem; color: #e5ece8; font-size: 1.08rem; }
-.button { display: inline-flex; justify-content: center; align-items: center; gap: .7rem; min-height: 46px; padding: .7rem 1.1rem; border: 1px solid transparent; border-radius: 5px; cursor: pointer; font-weight: 700; text-decoration: none; transition: transform .15s ease, background .15s ease; }
+.button { display: inline-flex; justify-content: center; align-items: center; gap: .7rem; min-height: 46px; padding: .7rem 1.1rem; border: 1px solid transparent; border-radius: 5px; cursor: pointer; text-decoration: none; transition: transform .15s ease, background .15s ease; }
 .button:hover { transform: translateY(-1px); }
 .button-light { color: var(--forest-deep); background: #f5e8ca; }
 .button-dark { width: 100%; color: white; background: var(--forest); }
@@ -46,7 +45,7 @@ h1 { max-width: 620px; margin-bottom: 1.15rem; font-size: clamp(2.8rem, 6vw, 5.3
 .letter-one { top: 8%; left: 18%; font-size: 5rem; transform: rotate(-12deg); }
 .letter-two { top: 3%; right: 15%; font-size: 4rem; }
 .letter-three { right: 5%; bottom: 10%; font-size: 6rem; transform: rotate(12deg); }
-.book-shape { position: absolute; top: 25%; left: 17%; width: 72%; height: 58%; display: flex; gap: 5px; padding: 1.2rem; transform: rotate(-5deg); border: 2px solid #e4c888; border-radius: 12px 4px 4px 12px; background: #f3ead4; box-shadow: 10px 10px 0 #d7ad6555; }
+.book-shape { position: absolute; top: 25%; left: 17%; width: 72%; height: 58%; display: flex; gap: 5px; padding: 1.2rem; transform: rotate(-5deg); border: 2px solid #e4c888; border-radius: 12px 4px 4px 12px; }
 .book-shape span { flex: 1; margin: 1rem .25rem; border-top: 1px solid #c8b890; box-shadow: 0 12px 0 #c8b890, 0 24px 0 #c8b890, 0 36px 0 #c8b890; opacity: .7; }
 .section { padding: 5rem clamp(1.25rem, 9vw, 9rem); }
 .section-heading { max-width: 690px; }
@@ -92,12 +91,11 @@ h2 { margin-bottom: .85rem; font-size: clamp(2rem, 4vw, 3.2rem); }
 .site-footer p { margin: 0; color: var(--muted); font-size: .85rem; }
 .site-footer small { max-width: 370px; color: var(--muted); font-size: .72rem; }
 :focus-visible { outline: 3px solid #bd8f42; outline-offset: 3px; }
-
-.account-button { width: 42px; height: 42px; display: inline-grid; place-items: center; flex: 0 0 42px; border: 1px solid var(--forest); border-radius: 50%; color: var(--forest); background: var(--paper); cursor: pointer; }
-.account-button:hover { color: white; background: var(--forest); }
+.account-button { width: 42px; height: 42px; display: inline-grid; place-items: center; flex: 0 0 42px; border: 1px solid var(--forest); border-radius: 50%; color: var(--forest); background: transparent; cursor: pointer; }
+.account-button:hover, .account-button.is-signed-in { color: white; background: var(--forest); }
 .account-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .auth-host { display: flex; align-items: center; }
-.auth-dialog { width: min(460px, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); padding: 1.5rem; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--paper); box-shadow: 0 24px 70px #102f2870; }
+.auth-dialog { width: min(460px, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); padding: 1.5rem; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--paper); box-shadow: 0 24px 70px #102f2866; }
 .auth-dialog::backdrop { background: #102f28a6; backdrop-filter: blur(3px); }
 .auth-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .auth-heading h2 { margin: 0 0 1rem; font-size: 2rem; }
@@ -111,7 +109,6 @@ h2 { margin-bottom: .85rem; font-size: clamp(2rem, 4vw, 3.2rem); }
 .auth-form input, .auth-form select { width: 100%; min-height: 46px; margin-bottom: .9rem; padding: .65rem .75rem; border: 1px solid #cdd4ce; border-radius: 5px; color: var(--ink); background: white; }
 .password-hint { margin: -.5rem 0 .8rem; color: var(--muted); font-size: .75rem; }
 .auth-message { margin: 1rem 0 0; color: var(--muted); font-size: .75rem; }
-
 @media (max-width: 800px) {
   .hero { grid-template-columns: 1fr .65fr; padding-top: 3rem; padding-bottom: 3rem; }
   .hero-art { min-height: 230px; }

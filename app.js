@@ -1,3 +1,5 @@
+// Static prototype account demo. Passwords are never stored.
+
 const lessons = {
   hebrew: {
     title: 'A first step in historical Hebrew',
@@ -71,7 +73,7 @@ function updateSummary() {
 }
 
 form.addEventListener('submit', (event) => {
-  event.preventDefault();
+  event.preventEvent();
   const preferences = { ageBand: ageSelect.value, tradition: traditionSelect.value };
   try {
     localStorage.setItem('torahTonguePreferences', JSON.stringify(preferences));
@@ -106,31 +108,24 @@ action.addEventListener('click', () => {
 
 loadPreferences();
 
-// The static prototype provides the account forms only. Never store passwords in browser storage.
-const authStyles = document.createElement('link');
-authStyles.rel = 'stylesheet';
-authStyles.href = 'auth.css';
-document.head.append(authStyles);
-
 const authDialogMarkup = `
   <button class="account-button" type="button" aria-label="Sign in or create an account" aria-haspopup="dialog">
     <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/></svg>
-    <span>Sign in</span>
   </button>
   <dialog class="auth-dialog" aria-labelledby="auth-title">
     <div class="auth-heading">
       <div><p class="eyebrow">Your TorahTongue account</p><h2 id="auth-title">Welcome back</h2></div>
-      <button class="auth-close" type="button" aria-label="Close sign-in dialog">×</button>
+      <button class="auth-close" type="button" aria-label="Close account dialog">×</button>
     </div>
-    <div class="auth-tabs" aria-label="Account options">
-      <button class="auth-tab is-active" type="button" data-auth-view="signin" aria-pressed="true">Sign in</button>
-      <button class="auth-tab" type="button" data-auth-view="signup" aria-pressed="false">Sign up</button>
+    <div class="auth-tabs" role="tablist" aria-label="Account options">
+      <button class="auth-tab is-active" type="button" role="tab" data-auth-view="signin" aria-selected="true">Sign in</button>
+      <button class="auth-tab" type="button" role="tab" data-auth-view="signup" aria-selected="false">Sign up</button>
     </div>
     <form class="auth-form" id="signin-form" data-auth-panel="signin">
       <label for="signin-identifier">Username or email address</label>
-      <input id="signin-identifier" name="identifier" type="text" autocomplete="username" placeholder="Username or email" required>
+      <input id="signin-identifier" name="identifier" type="text" autocomplete="username" required>
       <label for="signin-password">Password</label>
-      <input id="signin-password" name="password" type="password" autocomplete="current-password" required>
+      <input id="signin-password" name="password" type="password" autocomplete="current-password" minlength="8" required>
       <button class="button button-dark" type="submit">Sign in</button>
     </form>
     <form class="auth-form" id="signup-form" data-auth-panel="signup" hidden>
@@ -146,13 +141,13 @@ const authDialogMarkup = `
         <option>English</option><option>Hebrew</option><option>Yiddish</option><option>Aramaic</option><option>Other</option>
       </select>
       <label for="signup-email">Email address</label>
-      <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <input id="signup-email" name="email" type="email" autocomplete="email" required>
       <label for="signup-password">Create a password</label>
       <input id="signup-password" name="password" type="password" autocomplete="new-password" minlength="8" aria-describedby="password-hint" required>
       <p class="password-hint" id="password-hint">Use at least 8 characters.</p>
       <button class="button button-dark" type="submit">Create account</button>
     </form>
-    <p class="auth-message" role="status" aria-live="polite">This prototype has no account server. Forms are for demonstration only; don't enter a real password.</p>
+    <p class="auth-message" role="status" aria-live="polite">Use sample details only. Passwords are never stored.</p>
   </dialog>`;
 
 const authHost = document.createElement('div');
@@ -161,11 +156,41 @@ authHost.innerHTML = authDialogMarkup;
 document.querySelector('.site-header').append(authHost);
 
 const authDialog = authHost.querySelector('dialog');
+const accountButton = authHost.querySelector('.account-button');
 const authMessage = authHost.querySelector('.auth-message');
 const signupDate = authHost.querySelector('#signup-birthdate');
 if (signupDate) signupDate.max = new Date().toISOString().slice(0, 10);
 
-authHost.querySelector('.account-button').addEventListener('click', () => authDialog.showModal());
+function getSignedInProfile() {
+  try {
+    return JSON.parse(sessionStorage.getItem('torahTongueDemoSession') || 'null');
+  } catch (error) {
+    return null;
+  }
+}
+
+function updateAccountButton(profile) {
+  accountButton.setAttribute('aria-label', profile ? `Signed in as ${profile.name}. Open account menu` : 'Sign in or create an account');
+  accountButton.classList.toggle('is-signed-in', Boolean(profile));
+  accountButton.title = profile ? `Signed in as ${profile.name}` : 'Sign in or create an account';
+}
+
+updateAccountButton(getSignedInProfile());
+
+accountButton.addEventListener('click', () => {
+  const profile = getSignedInProfile();
+  if (profile) {
+    const confirmed = window.confirm(`Signed in as ${profile.name}. Sign out?`);
+    if (confirmed) {
+      sessionStorage.removeItem('torahTongueDemoSession');
+      updateAccountButton(null);
+      authMessage.textContent = 'You are signed out.';
+    }
+  } else {
+    authDialog.showModal();
+  }
+});
+
 authHost.querySelector('.auth-close').addEventListener('click', () => authDialog.close());
 authDialog.addEventListener('click', (event) => {
   if (event.target === authDialog) authDialog.close();
@@ -177,20 +202,54 @@ authHost.querySelectorAll('.auth-tab').forEach((tab) => {
     authHost.querySelectorAll('.auth-tab').forEach((item) => {
       const active = item === tab;
       item.classList.toggle('is-active', active);
-      item.setAttribute('aria-pressed', String(active));
+      item.setAttribute('aria-selected', String(active));
     });
     authHost.querySelectorAll('[data-auth-panel]').forEach((panel) => {
       panel.hidden = panel.dataset.authPanel !== view;
     });
     authHost.querySelector('#auth-title').textContent = view === 'signup' ? 'Create your account' : 'Welcome back';
-    authMessage.textContent = 'This prototype has no account server. Forms are for demonstration only; don’t enter a real password.';
+    authMessage.textContent = 'Use sample details only. Passwords are never stored.';
   });
 });
 
-authHost.querySelectorAll('.auth-form').forEach((authForm) => {
-  authForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    authMessage.textContent = 'The form is ready, but account creation and sign-in are not connected yet. A secure server is needed before accounts can work. No information was saved.';
-    authForm.querySelectorAll('input[type="password"]').forEach((input) => { input.value = ''; });
-  });
+const signupForm = authHost.querySelector('#signup-form');
+signupForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const data = new FormData(signupForm);
+  const profile = {
+    name: data.get('name').trim(),
+    username: data.get('username').trim().toLowerCase(),
+    email: data.get('email').trim().toLowerCase(),
+    language: data.get('language')
+  };
+  try {
+    sessionStorage.setItem('torahTongueDemoAccount', JSON.stringify(profile));
+    sessionStorage.setItem('torahTongueDemoSession', JSON.stringify(profile));
+    updateAccountButton(profile);
+    authMessage.textContent = `Demo account created. Welcome, ${profile.name}!`;
+    signupForm.reset();
+  } catch (error) {
+    authMessage.textContent = 'This browser could not save the demo account.';
+  }
+});
+
+const signinForm = authHost.querySelector('#signin-form');
+signinForm.addEventListener('submit', (event) => {
+  event.preventEvent();
+  const data = new FormData(signinForm);
+  const identifier = data.get('identifier').trim().toLowerCase();
+  let account = null;
+  try {
+    account = JSON.parse(sessionStorage.getItem('torahTongueDemoAccount') || 'null');
+  } catch (error) {
+    account = null;
+  }
+  if (account && (identifier === account.username || identifier === account.email)) {
+    sessionStorage.setItem('torahTongueDemoSession', JSON.stringify(account));
+    updateAccountButton(account);
+    authMessage.textContent = `Welcome back, ${account.name}!`;
+  } else {
+    authMessage.textContent = 'No matching demo account was found in this browser tab.';
+  }
+  signinForm.querySelectorAll('input[type="password"]').forEach((input) => { input.value = ''; });
 });
